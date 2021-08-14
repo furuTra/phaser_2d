@@ -14,7 +14,7 @@ export default class MainScene extends Phaser.Scene {
             scene: this,
             x: 0,
             y: 0,
-            texture: 'heavyKnight',
+            texture: 'heavyknight',
             frame: 'heavyknight_idle_1'
         });
         this.player.inputKeys = this.input.keyboard.addKeys({

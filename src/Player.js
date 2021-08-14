@@ -10,12 +10,15 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     static preload(scene) {
         let heavyknightJson = require('./assets/heavyknight_atlas.json');
         let heavyknightAnim = require('./assets/heavyknight_anim.json');
-        scene.load.atlas('heavyKnight', heavyknight, heavyknightJson);
-        scene.load.animation('heavyKnightAnim', heavyknightAnim);
+        scene.load.atlas('heavyknight', heavyknight, heavyknightJson);
+        scene.load.animation('heavyknight_anim', heavyknightAnim);
+    }
+
+    get velocity() {
+        return this.body.velocity;
     }
 
     update() {
-        // this.anims.play('heavyknight_idle', true);
         const speed = 2.5;
         let playerVelocity = new Phaser.Math.Vector2();
         if (this.inputKeys.left.isDown) {
@@ -30,5 +33,10 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x, playerVelocity.y);
+        if (Math.abs(this.velocity.x) > 0 || Math.abs(this.velocity.y) > 0) {
+            this.anims.play('heavyknight_walk', true);
+        } else {
+            this.anims.play('heavyknight_idle', true);
+        }
     }
 }
