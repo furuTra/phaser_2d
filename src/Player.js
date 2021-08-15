@@ -1,15 +1,41 @@
-import heavyknight from "./assets/heavyknight.png";
+import heavyknight from "./assets/heavyknight/heavyknight.png";
 
 export default class Player extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
         let { scene, x, y, texture, frame } = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
+
+        const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+        var playerCollider = Bodies.circle(
+            this.x,
+            this.y,
+            12, 
+            {
+                isSensor: false, // 物理判定がある
+                label: 'playerCollider'
+            }
+        );
+        var playerSensor = Bodies.circle(
+            this.x,
+            this.y,
+            24,
+            {
+                isSensor: true, 
+                label: 'playerSensor'
+            }
+        );
+        const computedBody = Body.create({
+            parts: [playerCollider, playerSensor],
+            frictionAir: 0.35
+        });
+        this.setExistingBody(computedBody);
+        this.setFixedRotation();
     }
 
     static preload(scene) {
-        let heavyknightJson = require('./assets/heavyknight_atlas.json');
-        let heavyknightAnim = require('./assets/heavyknight_anim.json');
+        let heavyknightJson = require('./assets/heavyknight/heavyknight_atlas.json');
+        let heavyknightAnim = require('./assets/heavyknight/heavyknight_anim.json');
         scene.load.atlas('heavyknight', heavyknight, heavyknightJson);
         scene.load.animation('heavyknight_anim', heavyknightAnim);
     }
