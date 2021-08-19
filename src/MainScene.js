@@ -1,4 +1,6 @@
 import Player from "./Player";
+import TownsfolkFemale from "./TownsfolkFemale";
+import mapTile from "./assets/RPG Nature Tileset.png";
 
 export default class MainScene extends Phaser.Scene {
     constructor() {
@@ -7,13 +9,27 @@ export default class MainScene extends Phaser.Scene {
 
     preload() {
         Player.preload(this);
+        this.load.image('tiles', mapTile);
+        let mapJson = require('./assets/map.json');
+        this.load.tilemapTiledJSON('map', mapJson);
+
     }
 
     create() {
+        const map = this.make.tilemap({
+            key: 'map'
+        });
+        const tileset = map.addTilesetImage('RPG Nature Tileset', 'tiles', 32, 32, 0, 0);
+        const layer1 = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+        const layer2 = map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
+        layer1.setCollisionByProperty({
+            collides: true
+        });
+        this.matter.world.convertTilemapLayer(layer1);
         this.player = new Player({
             scene: this,
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 50,
             texture: 'heavyknight',
             frame: 'heavyknight_idle_1'
         });
@@ -22,7 +38,14 @@ export default class MainScene extends Phaser.Scene {
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
-        })
+        });
+        let female = new TownsfolkFemale({
+            scene: this,
+            x: 100,
+            y: 100,
+            texture: 'female',
+            frame: 'townsfolk_f_idle_1'
+        });
     }
 
     update() {
