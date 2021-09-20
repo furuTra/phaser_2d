@@ -1,31 +1,31 @@
 {
     "anims": [
         {
-            "key": "heavyknight_walk",
+            "key": "heavyknight_idle_left",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
             "frames": [
                 {
                     "key": "heavyknight",
-                    "frame": "heavyknight_walk_1"
+                    "frame": "heavyknight_idle_5"
                 },
                 {
                     "key": "heavyknight",
-                    "frame": "heavyknight_walk_2"
+                    "frame": "heavyknight_idle_6"
                 },
                 {
                     "key": "heavyknight",
-                    "frame": "heavyknight_walk_3"
+                    "frame": "heavyknight_idle_7"
                 },
                 {
                     "key": "heavyknight",
-                    "frame": "heavyknight_walk_4"
+                    "frame": "heavyknight_idle_8"
                 }
             ]
         },
         {
-            "key": "heavyknight_idle",
+            "key": "heavyknight_idle_right",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
@@ -45,6 +45,54 @@
                 {
                     "key": "heavyknight",
                     "frame": "heavyknight_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "heavyknight_walk_left",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_5"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_6"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_7"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_8"
+                }
+            ]
+        },
+        {
+            "key": "heavyknight_walk_right",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_1"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_2"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_3"
+                },
+                {
+                    "key": "heavyknight",
+                    "frame": "heavyknight_walk_4"
                 }
             ]
         }

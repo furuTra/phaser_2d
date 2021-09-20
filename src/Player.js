@@ -5,7 +5,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         let { scene, x, y, texture, frame } = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
-
+        this.direct = 'right'; // プレイヤーの方向
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         var playerCollider = Bodies.circle(
             this.x,
@@ -45,7 +45,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
 
     update() {
-        const speed = 2.5;
+        const speed = 2;
         let playerVelocity = new Phaser.Math.Vector2();
         if (this.inputKeys.left.isDown) {
             playerVelocity.x = -1;
@@ -59,10 +59,17 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x, playerVelocity.y);
+
+        if (this.velocity.x > 0) {
+            this.direct = 'right';
+        } else if (this.velocity.x < 0) {
+            this.direct = 'left'
+        }
+
         if (Math.abs(this.velocity.x) > 0 || Math.abs(this.velocity.y) > 0) {
-            this.anims.play('heavyknight_walk', true);
+            this.anims.play('heavyknight_walk_' + this.direct, true);
         } else {
-            this.anims.play('heavyknight_idle', true);
+            this.anims.play('heavyknight_idle_' + this.direct, true);
         }
     }
 }
