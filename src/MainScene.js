@@ -27,6 +27,10 @@ export default class MainScene extends Phaser.Scene {
             collides: true
         });
         this.matter.world.convertTilemapLayer(layer1);
+        layer2.setCollisionByProperty({
+            collides: true
+        });
+        this.matter.world.convertTilemapLayer(layer2);
 
         // createPlayer
         this.player = new Player({
@@ -44,6 +48,11 @@ export default class MainScene extends Phaser.Scene {
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
         });
+
+        // Camera
+        var mainCamera = this.cameras.main;
+        mainCamera.startFollow(this.player, true);
+        mainCamera.setBounds(0, 0, 32 * 16, 32 * 16);
 
         // createMob
         this.female = new TownsfolkFemale({
