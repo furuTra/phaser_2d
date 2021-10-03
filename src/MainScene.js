@@ -16,6 +16,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create() {
+        // createMap
         const map = this.make.tilemap({
             key: 'map'
         });
@@ -26,26 +27,34 @@ export default class MainScene extends Phaser.Scene {
             collides: true
         });
         this.matter.world.convertTilemapLayer(layer1);
+
+        // createPlayer
         this.player = new Player({
             scene: this,
             x: 50,
             y: 50,
             texture: 'heavyknight',
-            frame: 'heavyknight_idle_1'
+            frame: 'heavyknight_idle_1',
+            name: 'Knight'
         });
-        this.female = new TownsfolkFemale({
-            scene: this,
-            x: 100,
-            y: 100,
-            texture: 'female',
-            frame: 'townsfolk_f_idle_1'
-        });
+        this.input.keyboard.createCursorKeys();
         this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
         });
+
+        // createMob
+        this.female = new TownsfolkFemale({
+            scene: this,
+            x: 100,
+            y: 100,
+            texture: 'female',
+            frame: 'townsfolk_f_idle_1',
+            name: '少女A'
+        });
+
     }
 
     update() {

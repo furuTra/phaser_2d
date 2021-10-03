@@ -2,8 +2,9 @@ import female from "./assets/townsfolk_female/female.png";
 
 export default class TownsfolkFemale extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
-        let { scene, x, y, texture, frame } = data;
+        let { scene, x, y, texture, frame, name } = data;
         super(scene.matter.world, x, y, texture, frame);
+        this.text = this.scene.add.text(x - 12, y - 18, name, { font: '10px Arial', fill: '#00ff00' });
         this.scene.add.existing(this);
 
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -42,5 +43,6 @@ export default class TownsfolkFemale extends Phaser.Physics.Matter.Sprite {
 
     update() {
         this.anims.play('female_idle', true);
+        this.text.setPosition(this.body.position.x - 12, this.body.position.y - 18);
     }
 }
