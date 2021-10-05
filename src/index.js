@@ -4,8 +4,8 @@ import MainScene from "./MainScene";
 
 const config = {
     type: Phaser.AUTO,
-    width: 512,
-    height: 512,
+    width: 380,
+    height: 380,
     backgroundColor: '#333333',
     parent: 'survival',
     physics: {

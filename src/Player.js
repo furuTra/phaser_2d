@@ -1,10 +1,12 @@
 import heavyknight from "./assets/heavyknight/heavyknight.png";
+import HealthBar from "./HealthBar";
 
 export default class Player extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
         let { scene, x, y, texture, frame, name } = data;
         super(scene.matter.world, x, y, texture, frame);
-        this.text = this.scene.add.text(x - 12, y - 18, name, { font: '10px Arial', fill: '#00ff00' });
+        this.text = this.scene.add.text(x - 12, y - 18, name, { font: '10px Arial', fill: '#FFFFFF' });
+        this.hp = new HealthBar(scene, x, y, 100);
         this.scene.add.existing(this);
         this.direct = 'right'; // プレイヤーの方向
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -74,5 +76,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         }
 
         this.text.setPosition(this.body.position.x - 12, this.body.position.y - 18);
+        this.hp.position(this.body.position.x - 25, this.body.position.y + 18);
     }
 }

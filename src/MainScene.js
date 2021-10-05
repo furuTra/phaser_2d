@@ -63,7 +63,6 @@ export default class MainScene extends Phaser.Scene {
             frame: 'townsfolk_f_idle_1',
             name: '少女A'
         });
-
     }
 
     update() {
