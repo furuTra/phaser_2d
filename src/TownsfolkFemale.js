@@ -1,4 +1,4 @@
-import female from "./assets/townsfolk_female/female.png";
+import female from "./assets/townsfolk_female/townsfolk_female.png";
 import Character from "./Character";
 
 export default class TownsfolkFemale extends Character {
