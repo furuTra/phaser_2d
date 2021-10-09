@@ -21,12 +21,14 @@ export default class MainScene extends Phaser.Scene {
             key: 'map'
         });
         const tileset = map.addTilesetImage('RPG Nature Tileset', 'tiles', 32, 32, 0, 0);
+
         const layer1 = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
-        const layer2 = map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
         layer1.setCollisionByProperty({
             collides: true
         });
         this.matter.world.convertTilemapLayer(layer1);
+
+        const layer2 = map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
         layer2.setCollisionByProperty({
             collides: true
         });
@@ -41,6 +43,8 @@ export default class MainScene extends Phaser.Scene {
             frame: 'heavyknight_idle_1',
             name: 'Knight'
         });
+
+        // createCursor
         this.input.keyboard.createCursorKeys();
         this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
