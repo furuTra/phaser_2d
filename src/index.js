@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import * as PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import MainScene from "./MainScene";
 
 const config = {

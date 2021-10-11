@@ -67,6 +67,16 @@ export default class MainScene extends Phaser.Scene {
             frame: 'townsfolk_f_idle_1',
             name: '少女A'
         });
+
+        // collision event
+        this.matterCollision.addOnCollideStart({
+            objectA: this.player,
+            objectB: this.female,
+            callback: () => {
+                this.female.ballon();
+            }
+        });
+        // this.matterCollision.removeOnCollideEnd();
     }
 
     update() {

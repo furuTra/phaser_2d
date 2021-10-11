@@ -4,6 +4,8 @@ import Character from "./Character";
 export default class TownsfolkFemale extends Character {
     constructor(data) {
         super(data);
+        this.x = data.x;
+        this.y = data.y;
     }
 
     static preload(scene) {
@@ -15,5 +17,17 @@ export default class TownsfolkFemale extends Character {
 
     update() {
         super.update('townsfolk_female_idle');
+    }
+
+    ballon() {
+        this.scene.add.text(
+            this.x - 12,
+            this.y + 18,
+            'こんにちは',
+            { 
+                font: '10px Arial',
+                fill: '#FFFFFF'
+            }
+        );
     }
 }
