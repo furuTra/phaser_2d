@@ -6,15 +6,16 @@ export default class TownsfolkFemale extends Character {
         super(data);
         this.x = data.x;
         this.y = data.y;
-        this.speech = this.scene.add.text(
+        var { bubble, content } = this.createBubble(
             this.x - 12,
             this.y + 18,
-            'こんにちは',
-            { 
-                font: '10px Arial',
-                fill: '#FFFFFF'
-            }
+            70,
+            30,
+            'こんにちは'
         );
+        this.bubble = bubble;
+        this.speech = content;
+        this.bubble.setVisible(false);
         this.speech.setVisible(false);
     }
 
@@ -26,12 +27,66 @@ export default class TownsfolkFemale extends Character {
     }
 
     update() {
-        this.speech.setPosition(this.body.position.x - 12, this.body.position.y + 18);
+        this.bubble.setPosition(this.body.position.x - 12, this.body.position.y + 18);
+
+        var { bubbleContentPostionX, bubbleContentPostionY } = this.bubbleContentPostion(this.body.position.x - 12, this.body.position.y + 18, 70, 30, this.speech);
+        this.speech.setPosition(bubbleContentPostionX, bubbleContentPostionY);
         this.anims.play('townsfolk_female_idle', true);
         super.update();
     }
 
     ballon(isShow) {
+        this.bubble.setVisible(isShow);
         this.speech.setVisible(isShow);
     }
+
+    createBubble(x, y, bubbleWidth, bubbleHeight, msg) {
+        var bubblePadding = 10;
+        var bubble = this.scene.add.graphics({ x: x, y: y });
+        var arrowHeight = bubbleHeight / 5;
+
+        //  Bubble shadow
+        bubble.fillStyle(0x222222, 0.5);
+        bubble.fillRoundedRect(6, 6, bubbleWidth, bubbleHeight, 16);
+
+        //  Bubble color
+        bubble.fillStyle(0xffffff, 1);
+
+        //  Bubble shape and outline
+        bubble.fillRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+
+        //  Calculate arrow coordinates
+        var point1X = Math.floor(bubbleWidth / 7);
+        var point1Y = 6;
+        var point2X = Math.floor((bubbleWidth / 7) * 2);
+        var point2Y = 6;
+        var point3X = Math.floor(bubbleWidth / 7);
+        var point3Y = Math.floor(- arrowHeight);
+
+        //  Bubble arrow fill
+        bubble.fillTriangle(point1X, point1Y, point2X, point2Y, point3X, point3Y);
+
+        var content = this.scene.add.text(0, 0, msg, { fontFamily: 'Arial', fontSize: 10, color: '#000000', align: 'left', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+
+        var b = content.getBounds();
+
+        var { bubbleContentPostionX, bubbleContentPostionY } = this.bubbleContentPostion(x, y, bubbleWidth, bubbleHeight, b)
+        content.setPosition(bubbleContentPostionX, bubbleContentPostionY);
+
+        return {
+            bubble,
+            content
+        };
+    }
+
+    bubbleContentPostion(x, y, bubbleWidth, bubbleHeight, b) {
+        var bubbleContentPostionX = x + (bubbleWidth / 2) - (b.width / 2);
+        var bubbleContentPostionY = y + (bubbleHeight / 2) - (b.height / 2);
+        return {
+            bubbleContentPostionX,
+            bubbleContentPostionY
+        };
+
+    }
+
 }
