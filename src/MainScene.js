@@ -73,14 +73,21 @@ export default class MainScene extends Phaser.Scene {
             objectA: this.player,
             objectB: this.female,
             callback: () => {
-                this.female.ballon();
+                this.female.ballon(true);
             }
         });
-        // this.matterCollision.removeOnCollideEnd();
+        this.matterCollision.addOnCollideEnd({
+            objectA: this.player,
+            objectB: this.female,
+            callback: () => {
+                this.female.ballon(false);
+            }
+        });
     }
 
     update() {
         this.player.update();
         this.female.update();
     }
+
 }

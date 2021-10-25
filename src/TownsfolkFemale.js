@@ -6,6 +6,16 @@ export default class TownsfolkFemale extends Character {
         super(data);
         this.x = data.x;
         this.y = data.y;
+        this.speech = this.scene.add.text(
+            this.x - 12,
+            this.y + 18,
+            'こんにちは',
+            { 
+                font: '10px Arial',
+                fill: '#FFFFFF'
+            }
+        );
+        this.speech.setVisible(false);
     }
 
     static preload(scene) {
@@ -16,18 +26,12 @@ export default class TownsfolkFemale extends Character {
     }
 
     update() {
-        super.update('townsfolk_female_idle');
+        this.speech.setPosition(this.body.position.x - 12, this.body.position.y + 18);
+        this.anims.play('townsfolk_female_idle', true);
+        super.update();
     }
 
-    ballon() {
-        this.scene.add.text(
-            this.x - 12,
-            this.y + 18,
-            'こんにちは',
-            { 
-                font: '10px Arial',
-                fill: '#FFFFFF'
-            }
-        );
+    ballon(isShow) {
+        this.speech.setVisible(isShow);
     }
 }

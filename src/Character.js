@@ -30,13 +30,12 @@ export default class Character extends Phaser.Physics.Matter.Sprite {
         });
         this.setExistingBody(computedBody);
         this.setFixedRotation();
-        this.text = this.scene.add.text(x - 12, y - 18, name, { font: '10px Arial', fill: '#FFFFFF' });
+        this.charaName = this.scene.add.text(x - 12, y - 18, name, { font: '10px Arial', fill: '#FFFFFF' });
         this.hp = new HealthBar(scene, x, y, 100);
     }
 
-    update(idleFrame) {
-        this.anims.play(idleFrame, true);
-        this.text.setPosition(this.body.position.x - 12, this.body.position.y - 18);
+    update() {
+        this.charaName.setPosition(this.body.position.x - 12, this.body.position.y - 18);
         this.hp.position(this.body.position.x - 25, this.body.position.y + 18);
     }
 }

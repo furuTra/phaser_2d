@@ -38,8 +38,7 @@ export default class Player extends Heavyknight {
             this.anims.play('heavyknight_idle_' + this.direct, true);
         }
 
-        this.text.setPosition(this.body.position.x - 12, this.body.position.y - 18);
-        this.hp.position(this.body.position.x - 25, this.body.position.y + 18);
+        super.update();
     }
 
 }
