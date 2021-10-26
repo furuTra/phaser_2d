@@ -72,8 +72,10 @@ export default class MainScene extends Phaser.Scene {
         this.matterCollision.addOnCollideStart({
             objectA: this.player,
             objectB: this.female,
-            callback: () => {
-                this.female.ballon(true);
+            callback: eventData => {
+                if (eventData.bodyA.label == 'playerSensor' && eventData.bodyB.label == 'playerSensor') {
+                    this.female.ballon(true);
+                }
             }
         });
         this.matterCollision.addOnCollideEnd({
