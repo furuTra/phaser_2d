@@ -59,37 +59,66 @@ export default class MainScene extends Phaser.Scene {
         mainCamera.setBounds(0, 0, 32 * 16, 32 * 16);
 
         // createMob
-        this.female = new TownsfolkFemale({
+        this.female1 = new TownsfolkFemale({
             scene: this,
             x: 100,
             y: 100,
             texture: 'female',
             frame: 'townsfolk_f_idle_1',
-            name: '少女A'
+            name: '少女A',
+            speech: 'こんにちは'
+        });
+
+        this.female2 = new TownsfolkFemale({
+            scene: this,
+            x: 400,
+            y: 100,
+            texture: 'female',
+            frame: 'townsfolk_f_idle_1',
+            name: '少女B',
+            speech: 'あら？'
         });
 
         // collision event
         this.matterCollision.addOnCollideStart({
             objectA: this.player,
-            objectB: this.female,
+            objectB: this.female1,
             callback: eventData => {
                 if (eventData.bodyA.label == 'playerSensor' && eventData.bodyB.label == 'playerSensor') {
-                    this.female.ballon(true);
+                    this.female1.ballon(true);
                 }
             }
         });
         this.matterCollision.addOnCollideEnd({
             objectA: this.player,
-            objectB: this.female,
+            objectB: this.female1,
             callback: () => {
-                this.female.ballon(false);
+                this.female1.ballon(false);
+            }
+        });
+
+        this.matterCollision.addOnCollideStart({
+            objectA: this.player,
+            objectB: this.female2,
+            callback: eventData => {
+                if (eventData.bodyA.label == 'playerSensor' && eventData.bodyB.label == 'playerSensor') {
+                    this.female2.ballon(true);
+                }
+            }
+        });
+        this.matterCollision.addOnCollideEnd({
+            objectA: this.player,
+            objectB: this.female2,
+            callback: () => {
+                this.female2.ballon(false);
             }
         });
     }
 
     update() {
         this.player.update();
-        this.female.update();
+        this.female1.update();
+        this.female2.update();
     }
 
 }
