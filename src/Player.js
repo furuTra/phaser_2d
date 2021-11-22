@@ -13,6 +13,28 @@ export default class Player extends Heavyknight {
     update() {
         const speed = 2;
         let playerVelocity = new Phaser.Math.Vector2();
+
+        // マウスでの移動
+        var pointer = this.scene.input.activePointer;
+        if (pointer.isDown) {
+            let pointerX = pointer.worldX;
+            let pointerY = pointer.worldY;
+            if (this.body.position.y <= pointerY && this.body.position.x <= pointerX) {
+                playerVelocity.y = 1;
+                playerVelocity.x = 1;
+            } else if (this.body.position.y > pointerY && this.body.position.x <= pointerX) {
+                playerVelocity.y = -1;
+                playerVelocity.x = 1;
+            } else if (this.body.position.y > pointerY && this.body.position.x > pointerX) {
+                playerVelocity.y = -1;
+                playerVelocity.x = -1;
+            } else if (this.body.position.y <= pointerY && this.body.position.x > pointerX) {
+                playerVelocity.y = 1;
+                playerVelocity.x = -1;
+            }
+        }
+
+        // キーボード移動
         if (this.inputKeys.left.isDown) {
             playerVelocity.x = -1;
         } else if (this.inputKeys.right.isDown) {
@@ -22,10 +44,12 @@ export default class Player extends Heavyknight {
         } else if (this.inputKeys.up.isDown) {
             playerVelocity.y = -1;
         }
+        
         playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x, playerVelocity.y);
 
+        // 左向きと右向きで読み込む立ち絵を変更する
         if (this.velocity.x > 0) {
             this.direct = 'right';
         } else if (this.velocity.x < 0) {
