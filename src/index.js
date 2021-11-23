@@ -19,6 +19,8 @@ const config = {
         MainScene
     ],
     scale: {
+        mode: Phaser.Scale.FIT, // 画面に合わせてゲーム画面大きさを変更
+        autoCenter: Phaser.Scale.CENTER_BOTH, // 画面中央にゲーム画面を配置
         zoom: 2
     },
     plugins: {
