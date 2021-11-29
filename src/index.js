@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import DropShadowPipelinePlugin from 'phaser3-rex-plugins/plugins/dropshadowpipeline-plugin.js';
 import MainScene from "./MainScene";
 
 const config = {
@@ -12,7 +13,7 @@ const config = {
         default: 'matter',
         matter: {
             gravity: { y: 0 },
-            debug: true
+            debug: false
         }
     },
     scene: [
@@ -24,6 +25,13 @@ const config = {
         zoom: 2
     },
     plugins: {
+        global: [
+            {
+                plugin: DropShadowPipelinePlugin,
+                key: 'dropShadowPipeline',
+                start: true
+            }
+        ],
         scene: [
             {
                 plugin: PhaserMatterCollisionPlugin,
