@@ -48,9 +48,9 @@ export default class MainScene extends Phaser.Scene {
         this.joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
             x: 350,
             y: 350,
-            radius: 25,
-            base: this.add.circle(0, 0, 50, 0x888888),
-            thumb: this.add.circle(0, 0, 25, 0xcccccc)
+            radius: 15,
+            base: this.add.circle(0, 0, 30, 0x888888),
+            thumb: this.add.circle(0, 0, 15, 0xcccccc)
         });
         this.player.cursorKeys = this.joyStick.createCursorKeys();
 
