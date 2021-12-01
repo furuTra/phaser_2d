@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import DropShadowPipelinePlugin from 'phaser3-rex-plugins/plugins/dropshadowpipeline-plugin.js';
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 import MainScene from "./MainScene";
 
 const config = {
@@ -29,6 +30,11 @@ const config = {
             {
                 plugin: DropShadowPipelinePlugin,
                 key: 'dropShadowPipeline',
+                start: true
+            },
+            {
+                plugin: VirtualJoystickPlugin,
+                key: 'virtualJoystickPlugin',
                 start: true
             }
         ],

@@ -44,6 +44,16 @@ export default class MainScene extends Phaser.Scene {
             name: 'Knight'
         });
 
+        // createJoyStick
+        this.joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
+            x: 350,
+            y: 350,
+            radius: 25,
+            base: this.add.circle(0, 0, 50, 0x888888),
+            thumb: this.add.circle(0, 0, 25, 0xcccccc)
+        });
+        this.player.cursorKeys = this.joyStick.createCursorKeys();
+
         // createCursor
         this.input.keyboard.createCursorKeys();
         this.player.inputKeys = this.input.keyboard.addKeys({

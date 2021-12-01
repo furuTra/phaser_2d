@@ -14,24 +14,15 @@ export default class Player extends Heavyknight {
         const speed = 2;
         let playerVelocity = new Phaser.Math.Vector2();
 
-        // マウスでの移動
-        var pointer = this.scene.input.activePointer;
-        if (pointer.isDown) {
-            let pointerX = pointer.worldX;
-            let pointerY = pointer.worldY;
-            if (this.body.position.y <= pointerY && this.body.position.x <= pointerX) {
-                playerVelocity.y = 1;
-                playerVelocity.x = 1;
-            } else if (this.body.position.y > pointerY && this.body.position.x <= pointerX) {
-                playerVelocity.y = -1;
-                playerVelocity.x = 1;
-            } else if (this.body.position.y > pointerY && this.body.position.x > pointerX) {
-                playerVelocity.y = -1;
-                playerVelocity.x = -1;
-            } else if (this.body.position.y <= pointerY && this.body.position.x > pointerX) {
-                playerVelocity.y = 1;
-                playerVelocity.x = -1;
-            }
+        // ジョイスティック移動
+        if (this.cursorKeys.left.isDown) {
+            playerVelocity.x = -1;
+        } else if (this.cursorKeys.right.isDown) {
+            playerVelocity.x = 1;
+        } else if (this.cursorKeys.down.isDown) {
+            playerVelocity.y = 1;
+        } else if (this.cursorKeys.up.isDown) {
+            playerVelocity.y = -1;
         }
 
         // キーボード移動
@@ -56,6 +47,7 @@ export default class Player extends Heavyknight {
             this.direct = 'left'
         }
 
+        // 向きによって左右の立ち絵を切り替える
         if (Math.abs(this.velocity.x) > 0 || Math.abs(this.velocity.y) > 0) {
             this.anims.play('heavyknight_walk_' + this.direct, true);
         } else {
