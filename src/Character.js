@@ -44,8 +44,7 @@ export default class Character extends Phaser.Physics.Matter.Sprite {
         this.hp = new HealthBar(scene, x, y, 100);
 
         // キャラの影を追加
-        var pipelineInstance = this.scene.plugins.get('dropShadowPipeline');
-        pipelineInstance.add(charaBody, {
+        this.scene.dropShadowPipeline.add(charaBody, {
             distance: 4,
             angle: 270,
             shadowColor: '#666666',

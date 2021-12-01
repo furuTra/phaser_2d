@@ -34,6 +34,9 @@ export default class MainScene extends Phaser.Scene {
         });
         this.matter.world.convertTilemapLayer(layer2);
 
+        // createShadow
+        this.dropShadowPipeline = this.plugins.get('dropShadowPipeline');
+
         // createPlayer
         this.player = new Player({
             scene: this,
@@ -45,14 +48,14 @@ export default class MainScene extends Phaser.Scene {
         });
 
         // createJoyStick
-        this.joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
+        var joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
             x: 350,
             y: 350,
             radius: 15,
             base: this.add.circle(0, 0, 30, 0x888888),
             thumb: this.add.circle(0, 0, 15, 0xcccccc)
         });
-        this.player.cursorKeys = this.joyStick.createCursorKeys();
+        this.player.cursorKeys = joyStick.createCursorKeys();
 
         // createCursor
         this.input.keyboard.createCursorKeys();
