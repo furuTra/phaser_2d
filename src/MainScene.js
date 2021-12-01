@@ -48,12 +48,28 @@ export default class MainScene extends Phaser.Scene {
         });
 
         // createJoyStick
+        var baseJoyStick = this.add.circle(0, 0, 30, 0x888888);
+        var thumbJoyStick = this.add.circle(0, 0, 15, 0xcccccc);
+        this.dropShadowPipeline.add(baseJoyStick, {
+            distance: 4,
+            angle: 270,
+            shadowColor: '#666666',
+            alpha: 0.5,
+            blur: 0
+        });
+        this.dropShadowPipeline.add(thumbJoyStick, {
+            distance: 4,
+            angle: 270,
+            shadowColor: '#666666',
+            alpha: 0.5,
+            blur: 0
+        });
         var joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
             x: 350,
             y: 350,
             radius: 15,
-            base: this.add.circle(0, 0, 30, 0x888888),
-            thumb: this.add.circle(0, 0, 15, 0xcccccc)
+            base: baseJoyStick,
+            thumb: thumbJoyStick
         });
         this.player.cursorKeys = joyStick.createCursorKeys();
 
