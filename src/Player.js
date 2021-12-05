@@ -15,7 +15,19 @@ export default class Player extends Heavyknight {
         let playerVelocity = new Phaser.Math.Vector2();
 
         // ジョイスティック移動
-        if (this.cursorKeys.left.isDown) {
+        if (this.cursorKeys.left.isDown && this.cursorKeys.down.isDown) {
+            playerVelocity.x = -1;
+            playerVelocity.y = 1;
+        } else if (this.cursorKeys.left.isDown && this.cursorKeys.up.isDown) {
+            playerVelocity.x = -1;
+            playerVelocity.y = -1;
+        } else if (this.cursorKeys.right.isDown && this.cursorKeys.down.isDown) {
+            playerVelocity.x = 1;
+            playerVelocity.y = 1;
+        } else if (this.cursorKeys.right.isDown && this.cursorKeys.up.isDown) {
+            playerVelocity.x = 1;
+            playerVelocity.y = -1;
+        } else if (this.cursorKeys.left.isDown) {
             playerVelocity.x = -1;
         } else if (this.cursorKeys.right.isDown) {
             playerVelocity.x = 1;
@@ -23,10 +35,22 @@ export default class Player extends Heavyknight {
             playerVelocity.y = 1;
         } else if (this.cursorKeys.up.isDown) {
             playerVelocity.y = -1;
-        }
+        } 
 
         // キーボード移動
-        if (this.inputKeys.left.isDown) {
+        if (this.inputKeys.left.isDown && this.inputKeys.down.isDown) {
+            playerVelocity.x = -1;
+            playerVelocity.y = 1;
+        } else if (this.inputKeys.left.isDown && this.inputKeys.up.isDown) {
+            playerVelocity.x = -1;
+            playerVelocity.y = -1;
+        } else if (this.inputKeys.right.isDown && this.inputKeys.down.isDown) {
+            playerVelocity.x = 1;
+            playerVelocity.y = 1;
+        } else if (this.inputKeys.right.isDown && this.inputKeys.up.isDown) {
+            playerVelocity.x = 1;
+            playerVelocity.y = -1;
+        } else if (this.inputKeys.left.isDown) {
             playerVelocity.x = -1;
         } else if (this.inputKeys.right.isDown) {
             playerVelocity.x = 1;
