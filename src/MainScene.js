@@ -95,7 +95,7 @@ export default class MainScene extends Phaser.Scene {
             texture: 'female',
             frame: 'townsfolk_f_idle_1',
             name: '少女A',
-            speech: 'こんにちは'
+            speech: 'よく来たわね'
         });
 
         this.female2 = new TownsfolkFemale({
