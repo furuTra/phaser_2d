@@ -105,7 +105,7 @@ export default class MainScene extends Phaser.Scene {
             texture: 'female',
             frame: 'townsfolk_f_idle_1',
             name: '少女B',
-            speech: 'あら？'
+            speech: 'あらあら？'
         });
 
         // collision event
