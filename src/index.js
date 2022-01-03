@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import DropShadowPipelinePlugin from 'phaser3-rex-plugins/plugins/dropshadowpipeline-plugin.js';
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
+import TitleScene from "./TitleScene";
 import MainScene from "./MainScene";
 
 const config = {
@@ -18,6 +19,7 @@ const config = {
         }
     },
     scene: [
+        TitleScene,
         MainScene
     ],
     scale: {
