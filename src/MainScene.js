@@ -1,10 +1,11 @@
 import Player from "./Player";
 import TownsfolkFemale from "./TownsfolkFemale";
+import Info from "./Info";
 import mapTile from "./assets/RPG Nature Tileset.png";
 
 export default class MainScene extends Phaser.Scene {
     constructor() {
-        super("MainScene");
+        super('MainScene');
     }
 
     preload() {
@@ -16,23 +17,9 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create() {
-        // createMap
-        const map = this.make.tilemap({
-            key: 'map'
-        });
-        const tileset = map.addTilesetImage('RPG Nature Tileset', 'tiles', 32, 32, 0, 0);
+        this.createMap();
 
-        const layer1 = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
-        layer1.setCollisionByProperty({
-            collides: true
-        });
-        this.matter.world.convertTilemapLayer(layer1);
-
-        const layer2 = map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
-        layer2.setCollisionByProperty({
-            collides: true
-        });
-        this.matter.world.convertTilemapLayer(layer2);
+        this.createInfo();
 
         // createShadow
         this.dropShadowPipeline = this.plugins.get('dropShadowPipeline');
@@ -47,45 +34,11 @@ export default class MainScene extends Phaser.Scene {
             name: 'Knight'
         });
 
-        // createJoyStick
-        var baseJoyStick = this.add.circle(0, 0, 30, 0x888888);
-        var thumbJoyStick = this.add.circle(0, 0, 15, 0xcccccc);
-        this.dropShadowPipeline.add(baseJoyStick, {
-            distance: 4,
-            angle: 270,
-            shadowColor: '#666666',
-            alpha: 0.5,
-            blur: 0
-        });
-        this.dropShadowPipeline.add(thumbJoyStick, {
-            distance: 4,
-            angle: 270,
-            shadowColor: '#666666',
-            alpha: 0.5,
-            blur: 0
-        });
-        var joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
-            x: 350,
-            y: 350,
-            radius: 15,
-            base: baseJoyStick,
-            thumb: thumbJoyStick
-        });
-        this.player.cursorKeys = joyStick.createCursorKeys();
+        this.createCamera();
 
-        // createCursor
-        this.input.keyboard.createCursorKeys();
-        this.player.inputKeys = this.input.keyboard.addKeys({
-            up: Phaser.Input.Keyboard.KeyCodes.W,
-            down: Phaser.Input.Keyboard.KeyCodes.S,
-            left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D,
-        });
+        this.createJoyStick();
 
-        // Camera
-        var mainCamera = this.cameras.main;
-        mainCamera.startFollow(this.player, true);
-        mainCamera.setBounds(0, 0, 32 * 16, 32 * 16);
+        this.createCursorKeys();
 
         // createMob
         this.female1 = new TownsfolkFemale({
@@ -148,6 +101,107 @@ export default class MainScene extends Phaser.Scene {
         this.player.update();
         this.female1.update();
         this.female2.update();
+    }
+    
+    createCamera() {
+        let mainCamera = this.cameras.main;
+        mainCamera.startFollow(this.player, true);
+        mainCamera.setBounds(0, 0, 32 * 16, 32 * 16);
+    }
+
+    createMap() {
+        this.map = this.make.tilemap({
+            key: 'map'
+        });
+        const tileset = this.map.addTilesetImage('RPG Nature Tileset', 'tiles', 32, 32, 0, 0);
+
+        const layer1 = this.map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+        layer1.setCollisionByProperty({
+            collides: true
+        });
+        this.matter.world.convertTilemapLayer(layer1);
+
+        const layer2 = this.map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
+        layer2.setCollisionByProperty({
+            collides: true
+        });
+        this.matter.world.convertTilemapLayer(layer2);
+    }
+
+      
+
+    createInfo() {
+        // infoのある位置をPhysics.Matter.Sprite化
+        this.map.filterObjects('InfoPoint', obj => {
+            new Info({ scene: this, x: obj.x, y: obj.y, name: obj.name })
+        });
+
+        // 岩の間
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (
+                (bodyA.label == 'playerSensor' && bodyB.label == 'flowerInfo') ||
+                (bodyB.label == 'playerSensor' && bodyA.label == 'flowerInfo')
+            ) {
+                console.log('flowerInfo');
+            }            
+        });
+
+        // 看板（池）
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (
+                (bodyA.label == 'playerSensor' && bodyB.label == 'fountainInfo') ||
+                (bodyB.label == 'playerSensor' && bodyA.label == 'fountainInfo')
+            ) {
+                console.log('fountainInfo');
+            }            
+        });
+
+        // 看板（次のエリア）
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (
+                (bodyA.label == 'playerSensor' && bodyB.label == 'newAreaInfo') ||
+                (bodyB.label == 'playerSensor' && bodyA.label == 'newAreaInfo')
+            ) {
+                console.log('newAreaInfo');
+            }            
+        });
+    }
+
+    createCursorKeys() {
+        this.input.keyboard.createCursorKeys();
+        this.player.inputKeys = this.input.keyboard.addKeys({
+            up: Phaser.Input.Keyboard.KeyCodes.W,
+            down: Phaser.Input.Keyboard.KeyCodes.S,
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+        });
+    }
+
+    createJoyStick() {
+        var baseJoyStick = this.add.circle(0, 0, 30, 0x888888);
+        var thumbJoyStick = this.add.circle(0, 0, 15, 0xcccccc);
+        this.dropShadowPipeline.add(baseJoyStick, {
+            distance: 4,
+            angle: 270,
+            shadowColor: '#666666',
+            alpha: 0.5,
+            blur: 0
+        });
+        this.dropShadowPipeline.add(thumbJoyStick, {
+            distance: 4,
+            angle: 270,
+            shadowColor: '#666666',
+            alpha: 0.5,
+            blur: 0
+        });
+        var joyStick = this.plugins.get('virtualJoystickPlugin').add(this, {
+            x: 350,
+            y: 350,
+            radius: 15,
+            base: baseJoyStick,
+            thumb: thumbJoyStick
+        });
+        this.player.cursorKeys = joyStick.createCursorKeys();
     }
 
 }
