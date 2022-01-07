@@ -61,9 +61,20 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":16,
-                 "x":496,
+                 "width":4.38769928623844,
+                 "x":507.612300713762,
                  "y":177
+                }, 
+                {
+                 "height":127.735325628711,
+                 "id":33,
+                 "name":"preNextArea",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20.0984590754452,
+                 "x":479.033553465413,
+                 "y":160.181433309986
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -100,7 +111,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":33,
+ "nextobjectid":34,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -244,7 +255,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {

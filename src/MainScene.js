@@ -1,6 +1,7 @@
 import Player from "./Player";
 import TownsfolkFemale from "./TownsfolkFemale";
 import Info from "./Info";
+import Entrance from "./Entrance";
 import mapTile from "./assets/RPG Nature Tileset.png";
 
 export default class MainScene extends Phaser.Scene {
@@ -20,6 +21,8 @@ export default class MainScene extends Phaser.Scene {
         this.createMap();
 
         this.createInfo();
+
+        this.createEntrance();
 
         // createShadow
         this.dropShadowPipeline = this.plugins.get('dropShadowPipeline');
@@ -128,7 +131,37 @@ export default class MainScene extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(layer2);
     }
 
-      
+    createEntrance() {
+        this.map.filterObjects('MovePoint', obj => {
+            new Entrance({ scene: this, x: obj.x, y: obj.y, width: obj.width, height: obj.height, name: obj.name })
+        });
+
+        // 次のエリアに進む前に、目印を出す。
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (
+                (bodyA.label == 'playerSensor' && bodyB.label == 'preNextArea') ||
+                (bodyB.label == 'playerSensor' && bodyA.label == 'preNextArea')
+            ) {
+                console.log('preNextArea');
+            }
+        });
+
+        // 次のエリア表示
+        const nextScene = () => {
+            this.scene.start('TitleScene');
+        };
+
+        // 次のエリアに進む
+        this.matter.world.on('collisionstart', function (event, bodyA, bodyB) {
+            if (
+                (bodyA.label == 'playerCollider' && bodyB.label == 'nextArea') ||
+                (bodyB.label == 'playerCollider' && bodyA.label == 'nextArea')
+            ) {
+                nextScene();
+            }
+        });
+
+    }
 
     createInfo() {
         // infoのある位置をPhysics.Matter.Sprite化
