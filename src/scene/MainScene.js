@@ -1,8 +1,8 @@
-import Player from "./Player";
-import TownsfolkFemale from "./TownsfolkFemale";
-import Info from "./Info";
-import Entrance from "./Entrance";
-import mapTile from "./assets/RPG Nature Tileset.png";
+import Player from "../character/Player";
+import TownsfolkFemale from "../character/TownsfolkFemale";
+import Info from "../utils/Info";
+import Entrance from "../utils/Entrance";
+import mapTile from "../assets/RPG Nature Tileset.png";
 
 export default class MainScene extends Phaser.Scene {
     constructor() {
@@ -13,7 +13,7 @@ export default class MainScene extends Phaser.Scene {
         Player.preload(this);
         TownsfolkFemale.preload(this);
         this.load.image('tiles', mapTile);
-        let mapJson = require('./assets/map.json');
+        let mapJson = require('../assets/map.json');
         this.load.tilemapTiledJSON('map', mapJson);
     }
 

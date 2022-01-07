@@ -1,4 +1,4 @@
-import HealthBar from "./HealthBar";
+import HealthBar from "../utils/HealthBar";
 
 export default class Character extends Phaser.Physics.Matter.Sprite {
     constructor(data) {
