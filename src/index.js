@@ -2,8 +2,10 @@ import Phaser from 'phaser';
 import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 import DropShadowPipelinePlugin from 'phaser3-rex-plugins/plugins/dropshadowpipeline-plugin.js';
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
-import TitleScene from "./TitleScene";
-import MainScene from "./MainScene";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+// Scene
+import TitleScene from "./scene/TitleScene";
+import MainScene from "./scene/MainScene";
 
 const config = {
     type: Phaser.AUTO,
@@ -45,6 +47,11 @@ const config = {
                 plugin: PhaserMatterCollisionPlugin,
                 key: 'matterCollision',
                 mapping: 'matterCollision'
+            },
+            {
+                plugin: UIPlugin,
+                key: 'rexUI',
+                mapping: 'rexUI'
             }
         ]
     }
