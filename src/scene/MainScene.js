@@ -1,8 +1,8 @@
 import Player from "../character/Player";
 import TownsfolkFemale from "../character/TownsfolkFemale";
 import Info from "../utils/Info";
+import Map from "../map/Map";
 import Entrance from "../utils/Entrance";
-import mapTile from "../assets/RPG Nature Tileset.png";
 
 export default class MainScene extends Phaser.Scene {
     constructor() {
@@ -12,13 +12,12 @@ export default class MainScene extends Phaser.Scene {
     preload() {
         Player.preload(this);
         TownsfolkFemale.preload(this);
-        this.load.image('tiles', mapTile);
-        let mapJson = require('../assets/map.json');
-        this.load.tilemapTiledJSON('map', mapJson);
+        Map.preload(this);
     }
 
     create() {
-        this.createMap();
+        this.map = new Map(this);
+        this.map.create();
 
         this.createInfo();
 
@@ -109,25 +108,6 @@ export default class MainScene extends Phaser.Scene {
     createCamera() {
         this.cameras.main.startFollow(this.player, true);
         this.cameras.main.setBounds(0, 0, 32 * 16, 32 * 16);
-    }
-
-    createMap() {
-        this.map = this.make.tilemap({
-            key: 'map'
-        });
-        const tileset = this.map.addTilesetImage('RPG Nature Tileset', 'tiles', 32, 32, 0, 0);
-
-        const layer1 = this.map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
-        layer1.setCollisionByProperty({
-            collides: true
-        });
-        this.matter.world.convertTilemapLayer(layer1);
-
-        const layer2 = this.map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
-        layer2.setCollisionByProperty({
-            collides: true
-        });
-        this.matter.world.convertTilemapLayer(layer2);
     }
 
     createEntrance() {
