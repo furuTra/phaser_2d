@@ -6,10 +6,11 @@ import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 // Scene
 import TitleScene from "./scene/TitleScene";
 import MainScene from "./scene/MainScene";
+import BaseScene from './scene/BaseScene';
 
 const config = {
     type: Phaser.AUTO,
-    width: 380,
+    width: 480,
     height: 380,
     backgroundColor: '#333333',
     parent: 'survival',
@@ -22,7 +23,8 @@ const config = {
     },
     scene: [
         TitleScene,
-        MainScene
+        MainScene,
+        BaseScene,
     ],
     scale: {
         mode: Phaser.Scale.FIT, // 画面に合わせてゲーム画面大きさを変更
